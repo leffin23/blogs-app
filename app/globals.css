@@ -1,28 +1,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --nav-margin: 10rem;
+  --header:  3rem;
 }
 
 html,
 body {
+  width: 100%;
+  height: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 * {
   box-sizing: border-box;
@@ -35,8 +25,24 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.blogPageContainer{
+  width: calc(100% - var(--nav-margin));
+  margin-left:  var(--nav-margin);
+  min-height: calc(100dvh - var(--header));
+
+}
+
+.blogs_page{
+  width: 100%;
+  height: 100%;
+
+}
+.blogs_nav{
+  width: var(--nav-margin);
+}
+
+.blog_section{
+  width: 100%;
+  height: 100%;
+  background-color: antiquewhite;
 }

@@ -1,0 +1,75 @@
+.allBlogs{
+    width: 100%;
+    height: auto;
+    padding: 3em;
+    
+}
+.allBlogs h1{
+    
+    text-align: center;
+}
+.blogsList{
+    padding: 1em;
+    width: 100;
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+    flex-wrap: wrap;
+
+}
+.blog{
+    max-width: 200px;
+    background-color: rgb(190, 199, 216);
+    border-radius: 0 10px 10px 0;
+    padding: 1em;
+    border-left: 4px solid rgb(0, 13, 111);
+}
+.nav{
+    background-color: rgb(207, 214, 232);
+    height: calc(100dvh - var(--header));
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.nav a{
+    width: 100%;
+    padding:1em;
+    box-shadow: -3px 1px 2px rgba(0, 0, 0, .4);
+    cursor: pointer;
+}
+.nav a:hover{
+    background-color: rgb(139, 195, 235);
+}
+.single_blog{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  
+}
+.single_blog div{
+
+}
+
+.addBlog{
+    width: 5em;
+    aspect-ratio: 1;
+    background-color: rgb(127, 150, 255);
+    border-radius: 100%;
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.addBlog:hover{
+    background-color: rgb(151, 170, 255); 
+}
+.addBlog svg{
+    width: 50%;
+    height: 50%;
+    color: white;
+}
