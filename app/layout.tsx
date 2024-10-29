@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 // import {ClerkProvider} from '@clerk/nextjs'
 
 export const metadata: Metadata = {
-  title: "Blogs App",
+  title: "iLike",
   description: "Blogs website with prisma, clerk and nextjs ",
+  icons: {
+    icon: "/logo.jpg", // 
+  },
 };
 
 export default function RootLayout({
@@ -21,6 +25,7 @@ export default function RootLayout({
         <main>
           {children}
         </main>
+        <Footer />
       </body>
     </html>
     // </ClerkProvider>

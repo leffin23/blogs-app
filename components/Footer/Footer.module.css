@@ -1,0 +1,43 @@
+.footer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+    /* position: fixed;
+    bottom: 0;
+    left: 0; */
+    z-index: 90;
+    padding: .3em 1em;
+    background-color: rgb(255, 212, 111, .1);  ;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgb(220, 220, 220);
+    height: var(--header);
+    font-size: clamp(1em, 1.5vw, 1.5em);
+     color:rgb(123, 97, 56); 
+}
+.name{
+    font-weight: 700;
+    margin-right: auto;
+}
+.socials{
+    display: flex;
+    align-items: center;
+    gap: .8em;
+    height: 100%;
+    flex-shrink: 0;
+
+}
+.footer a{
+    transition: color .3s ease;
+}
+.footer a:hover{
+    color: rgb(255, 191, 0);
+}
+/* .socials a:hover{
+    color: rgb(255, 191, 0);
+} */
+.socials svg{
+    width: 1em;
+    height: auto;
+}
