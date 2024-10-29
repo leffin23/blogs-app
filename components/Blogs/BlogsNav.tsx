@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from "./Blogs.module.css"
 import { Category } from "@/utils/interfaces";
 import { getCategories } from "@/utils/api";
+import Hamburger from "./Hamburger";
 
 const BlogsNav = async() => {
     const categories: Category[] = await getCategories();
@@ -13,6 +14,7 @@ const BlogsNav = async() => {
       { categories.map((category: Category) => (
       <Link key={category.id} href={`/blogs/categories/${category.name}`}>{category.name}</Link>
       ))}
+     <Hamburger />
     </div>
   )
 }
