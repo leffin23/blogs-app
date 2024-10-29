@@ -1,17 +1,23 @@
 import Image from "next/image";
 import styles from "./Blogs.module.css"
 import { BlogItemProps } from "@/utils/interfaces";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {  faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 const BlogCard: React.FC<BlogItemProps> = ({ blog }) => {
-  const { title = "No", content = "no", user, category, image } = blog;
+  const { title, content, user, image } = blog;
 
   return (
  <div className={styles.blog}>
-      <h2>{title}</h2>
+      <div className={styles.header}><h2>{title}</h2></div>
+      {user?.name ? <p className={styles.likes}>{user.name} likes it like that:</p> : ""}
+      <div className={styles.blog_info}>
       <p>{content}</p>
-      {user?.name ? <p>Author: {user.name}</p> : <p>Author: Unknown Author</p>}
-      {category?.name && <p>Category: {category.name}</p>}
+      {/* {category?.name && <p>Category: {category.name}</p>} */}
       {image && <Image width={100} height={100} src={image} alt={title} />}
+
+      </div>
+      <div className={styles.full}>See full <FontAwesomeIcon icon={faArrowRightLong} /> </div>
     </div>
   )
 }
