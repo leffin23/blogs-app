@@ -3,10 +3,18 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
     padding: .3em;
+    /* background-color: rgba(255,255,255, .6); */
+    background-color: rgb(255, 212, 111, .1);  ;
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid rgb(220, 220, 220);
     height: var(--header);
     font-size: clamp(1em, 1.5vw, 1.5em);
+     color:rgb(123, 97, 56); 
 }
 
 .nav{
@@ -14,6 +22,7 @@
     display: flex;
     gap: 2em;
     align-items: center;
+    font-weight: 600;
 
 }
 .logo{
@@ -30,12 +39,28 @@
     object-fit: cover;
     object-position: center center;
 }
+.logo_both p{
+    color: black !important;
+}
 .nav{
     padding: 0 1em;
+}
+.nav div{
+    cursor: pointer;
+    transition: all .3s ease;
+}
+.nav div:hover{
+   color: rgb(255, 191, 0);
 }
 .nav div:nth-child(1){
     margin-right: auto;
 }
 .login_btn{
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+.user{
+    display: none;
+}
 }

@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
 import { auth } from "@/auth";
-import {  signIn, signOut } from "next-auth/react";
 import AuthButtons from "./AuthButtons";
 // import {
 //   SignInButton,
@@ -12,16 +11,19 @@ import AuthButtons from "./AuthButtons";
 // } from '@clerk/nextjs'
 
 const Navbar = async () => {
+  
   const session = await auth();
 
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
+        
         <div className={styles.logo}>
-          <Link href={"/"}>
-            <Image src="/logo.jpg" priority  width={35} height={35} alt="logo" />
+          <Link href={"/"} >
+          <Image src="/logo.png"  priority  width={35} height={35} alt="logo" unoptimized={true}/>
           </Link>
         </div>
+       
         <div>
           <Link href={"/blogs"}>Blogs</Link>
         </div>
@@ -36,15 +38,15 @@ const Navbar = async () => {
         {session && session?.user ? (
           <>
             <div>
-              <Link href={"/my-blogs"}>My blogs</Link>
+              <Link href={"/blogs/my-blogs"}>My blogs</Link>
             </div>
             <div>
             <div>
               <AuthButtons isSignedIn={true} />
             </div>
             </div>
-            <div>
-              <Link href={`/user/${session?.id}`}>
+            <div className={styles.user}>
+              <Link href={`/user/${session?.user.id}`} >
                 <span>{session?.user?.name}</span>
               </Link>
             </div>
