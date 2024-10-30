@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 export async function getBlogs(categoryName?: string, userId?:string) {
     let url = ""
 
@@ -12,10 +10,10 @@ export async function getBlogs(categoryName?: string, userId?:string) {
 
     const res = await fetch(url);
     
-    // if (!res.ok) {
-    //     console.error('Failed to fetch blogs:', res.statusText);
-    //     throw new Error(`Failed to fetch blogs: ${res.statusText}`);
-    // }
+    if (!res.ok) {
+        console.error('Failed to fetch blogs:', res.statusText);
+        throw new Error(`Failed to fetch blogs: ${res.statusText}`);
+    }
 
     try {
         let data = await res.json();
@@ -23,7 +21,7 @@ export async function getBlogs(categoryName?: string, userId?:string) {
         return categoryName ? data.blogs : data; 
     } catch (err) {
         console.error('Failed to parse JSON:', err);
-        // throw new Error('Response was not valid JSON');
+        throw new Error('Response was not valid JSON');
     }
 }
 
@@ -38,7 +36,7 @@ export async function getTopCategories() {
 }
 
 export async function deleteBlogPost(blogId: string) {
-    // alert(blogId)
+
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/${blogId}`, {
             method: 'DELETE',
@@ -55,7 +53,6 @@ export async function deleteBlogPost(blogId: string) {
         const data = await response.json();
         console.log('Success:', data.message); 
         return '200'
-        // redirect('/blogs/my-blogs')
 
     } catch (error) {
         console.error('Error:', error.message); 

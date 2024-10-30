@@ -10,6 +10,10 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           clientSecret: process.env.AUTH_GOOGLE_SECRET
         })
       ],
+      session: {
+        maxAge: 24 * 60 * 60, // 24 hours
+        updateAge: 12 * 60 * 60, // Session is refreshed every 12 hours
+      },
       callbacks: {
         async signIn({ user, account }) {
             if (!account) {
@@ -46,12 +50,12 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           return session;
         },
 
-        async jwt({ token, user }) {
-          if (user) {
-            token.sub = user.id; 
-          }
-          return token;
-        },
+        // async jwt({ token, user }) {
+        //   if (user) {
+        //     token.sub = user.id; 
+        //   }
+        //   return token;
+        // },
       }
     
     })
