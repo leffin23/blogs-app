@@ -21,6 +21,8 @@ model User {
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
   blogs Blog []
+  likes Like[] 
+  comments Comment[]
 }
 
 model Blog{
@@ -34,10 +36,30 @@ model Blog{
   category Category @relation(fields: [categoryId], references: [id])
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  likes Like[]
+  comments Comment[]
 }
+model Like {
+  id String @id @default(cuid())
+  userId String 
+  user User @relation(fields: [userId], references: [clerkUserId])
+  blogId String 
+  blog Blog @relation(fields: [blogId], references: [id])
+  createdAt DateTime @default(now())
+}
+model Comment {
+  id String @id @default(cuid())
+  content String 
+  userId String
+  user User @relation(fields: [userId], references: [clerkUserId])
+  blogId String 
+  blog Blog @relation(fields: [blogId], references: [id])
+  createdAt DateTime @default(now()) 
+}
+
 model Category{
   id String @id @default(cuid())
   name String @unique
- blogs Blog []
+  blogs Blog []
 
 }
