@@ -61,6 +61,7 @@ const CreateBlog = () => {
       setLoading(false);
     }
   };
+  
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];

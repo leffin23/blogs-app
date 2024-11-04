@@ -8,6 +8,7 @@ import { signIn, useSession } from "next-auth/react"
 const AddBlogBtn = () => {
     const {status } = useSession()
     const router = useRouter();
+
     const redirectAdd = () => {
         if (status === 'authenticated') {
             router.push('/blogs/my-blogs/create');

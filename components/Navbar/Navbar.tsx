@@ -20,7 +20,7 @@ const Navbar = async () => {
         
         <div className={styles.logo}>
           <Link href={"/"} >
-          <Image src="/logo.png"  priority  width={35} height={35} alt="logo" unoptimized={true}/>
+          <Image src="/logo2.png"  priority  width={35} height={35} alt="logo" unoptimized={true}/>
           </Link>
         </div>
        

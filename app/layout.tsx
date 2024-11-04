@@ -21,11 +21,13 @@ export default function RootLayout({
     // <ClerkProvider>
     <html lang="en">
       <body>
+        <div className="main_container">
         <Navbar />
         <main>
           {children}
         </main>
         <Footer />
+        </div>
       </body>
     </html>
     // </ClerkProvider>

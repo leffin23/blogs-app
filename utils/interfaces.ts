@@ -1,3 +1,5 @@
+import { Like } from "@prisma/client";
+
 export interface Blog {
     id: string;
     title: string;
@@ -11,6 +13,8 @@ export interface Blog {
       name?: string;
     };
     image?: string; 
+    likeCount: string;
+    likes: Like[];
   }
   export interface BlogItemProps {
     blog: Blog,

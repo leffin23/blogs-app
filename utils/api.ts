@@ -35,6 +35,26 @@ export async function getTopCategories() {
     return res.json()
 }
 
+
+export async function likePost(blogId:string) {
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/likes`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: blogId})
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Failed to like post:', errorData);
+        } else {
+            const likeData = await response.json();
+            console.log('Post liked successfully:', likeData);
+        }
+      
+}
 export async function deleteBlogPost(blogId: string) {
 
     try {

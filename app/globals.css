@@ -26,17 +26,19 @@ a {
 }
 body{
   display: grid;
+  grid-template-rows: auto, 1fr, auto;
 }
 main{
   padding-top: var(--header);
 
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
 }
 .blogPageContainer{
   width: calc(100% - var(--nav-margin));
   margin-left:  var(--nav-margin);
   min-height: calc(100dvh - var(--header));
+  height: 100%;
   /* padding-top: var(--header); */
 }
 
@@ -76,6 +78,7 @@ main{
 .blog_page{
   height: 100%;
 }
+
 
 @media screen and (max-width: 768px) {
 

@@ -100,9 +100,11 @@
     text-transform: uppercase;
 }
 .likes{
-    /* align-self: flex-end; */
     font-weight: 500;
     padding:.5em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }
 .blog:hover{
@@ -277,6 +279,14 @@
 .nav a:hover{
     background-color:  rgb(255, 217, 128); 
 }
+.single_blog_section{
+    width: 100%;
+    height: 100dvh;
+    font-size: clamp(1em, 2vw, 1.2em);
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 .single_blog{
     width: 100%;
     height: 100%;
@@ -284,20 +294,51 @@
     padding: 2em;
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-  
 }
+.blog_comments{
+    background-color: rgb(252, 232, 209);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1em;
+    height: 100%;
 
+}
+.liked{
+    color: rgb(182, 23, 57)!important;
+}
+.comments{
+    max-height: 60dvh;
+    overflow: auto;
+}
+.add_comment{
+    width: 90%;
+    height: 15dvh;
+    border-radius: 10px;
+    background-color: white;
+}
 .single_blog div{
 
 }
 .single_blog img{
     object-fit: contain;
-    width: clamp(350px, 20vw, 500px);
+    width: clamp(300px, 20vw, 400px);
     height: auto;
+    object-fit: cover;
 }
-
+.single_blog button{
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    border: none;
+    outline: hidden;
+    cursor: pointer;
+}
+.single_blog button svg{
+    width: 1.5em;
+    height: 1.5em;
+}
 .addBlog{
     width: 5em;
     aspect-ratio: 1;
@@ -354,7 +395,7 @@
 .hamburger{
     width: 2em;
     aspect-ratio: 1;
-    background-color: rgb(255, 202, 122);
+    background-color: hsl(36, 100%, 74%);
     border-radius: 50%;
     padding: .2em;
     position: absolute;
