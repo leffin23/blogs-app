@@ -15,9 +15,18 @@ export async function GET() {
         include: {
             user: true,
             category: true,
+             _count: {
+                select: { likes: true },
+            },
         },
     })
-    return NextResponse.json(blogs)
+
+    const blogsWithLikes = blogs.map((blog) => ({
+        ...blog,
+        likeCount: blog._count.likes,
+    }));
+
+    return NextResponse.json(blogsWithLikes)
 }
 
 

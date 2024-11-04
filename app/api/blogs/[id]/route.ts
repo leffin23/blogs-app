@@ -14,10 +14,24 @@ export async function GET(request:Request, {params}: {params:{id: string}}) {
         },
         include:{
             user: true,
-            category: true
+            category: true,
+            likes: true,
+            _count: {
+                select: { likes: true },
+            },
         },
     })
-    return NextResponse.json(blogInfo)
+
+    if (!blogInfo) {
+        return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
+    }
+
+    const blogWithLikes = {
+        ...blogInfo,
+        likeCount: blogInfo._count.likes,
+    };
+
+    return NextResponse.json(blogWithLikes)
 }
 
 
