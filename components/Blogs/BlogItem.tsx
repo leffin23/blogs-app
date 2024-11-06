@@ -26,7 +26,15 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
 
   return (
   <div className={styles.single_blog_section}>
+
     <div className={styles.single_blog}> 
+    {userId ? (
+        <div>
+          <ManageBlogBtns blogId={id} />
+        </div>
+      ) : (
+        ""
+      )}
       <div className={styles.likes}>
         {like}
         {/* {user?.name
@@ -41,13 +49,7 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
       {category?.name && <p>Category: {category.name}</p>}
       {image ? <Image unoptimized={true} src={image} alt={title} width={100} height={100} /> : ""}
       
-      {userId ? (
-        <div>
-          <ManageBlogBtns blogId={id} />
-        </div>
-      ) : (
-        ""
-      )}
+    
     </div>
     <div className={styles.blog_comments}>
         <div className={styles.comments}>

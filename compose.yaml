@@ -1,0 +1,56 @@
+
+services:
+  blogs-app:
+    build:
+      context: .
+    image: bloggs-app2
+    container_name: bloggs_app2_c2
+    ports:
+    - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - my-network
+    develop:
+      watch:
+      - action: sync
+        path: .
+        target: /bloggs-app
+        ignore:
+          - node_modules/
+      - action: rebuild
+        path: package.json
+
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    container_name: postgres_c1
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    networks:
+      - my-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+       ["CMD", "pg_isready", "-U", "postgres", "-d", "Blogs"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  pgdata: {}
+
+networks:
+  my-network:
+    driver: bridge

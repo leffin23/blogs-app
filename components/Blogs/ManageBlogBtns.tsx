@@ -26,8 +26,8 @@ const ManageBlogBtns = ({blogId}: ButtonsProps) => {
     }
   return (
     <div className={styles.btns}>
-       <button onClick={(e) => handleDelete(e)} disabled={loading}> {loading ? "Deleting..." : "Delete blog"}  <FontAwesomeIcon icon={faTrashCan}  /></button>
-       <button>Update blog <FontAwesomeIcon icon={faPenToSquare} /></button>
+       <button onClick={(e) => handleDelete(e)} disabled={loading}> {loading ? "Deleting..." : "Delete"}  <FontAwesomeIcon icon={faTrashCan}  /></button>
+       <button>Update <FontAwesomeIcon icon={faPenToSquare} /></button>
     </div>
   )
 }
