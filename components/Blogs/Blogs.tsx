@@ -12,7 +12,7 @@ interface BlogsProps {
 
 const Blogs = async({categoryName, userId}:BlogsProps) => {
   const blogs: Blog[] = await getBlogs(categoryName, userId);
-  const p = userId ? "You didn't create any blogs yet.." :"No blogs available"
+  const p = userId ? "You didn't create any hacks yet.." :"No hacks available"
   
   const session = await auth()
   const currentUser = session?.user?.id

@@ -18,7 +18,11 @@ export async function GET(request:Request, {params}: {params:{id: string}}) {
             user: true,
             category: true,
             likes: true,
-            comments: true,
+            comments: {
+                include: {
+                    user: true,
+                }
+            },
             _count: {
                 select: { likes: true },
             },

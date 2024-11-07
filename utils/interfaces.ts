@@ -15,6 +15,13 @@ export interface Blog {
     image?: string; 
     likeCount: string;
     likes: Like[];
+    comments: Array<{
+      id: string;
+      content: string;
+      userId: string;
+      createdAt: Date;
+      user: { name: string }; 
+  }>;
   }
   export interface BlogItemProps {
     blog: Blog,

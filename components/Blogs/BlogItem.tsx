@@ -7,19 +7,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ButtonCheckAuth from "./ButtonCheckAuth";
 import { auth } from "@/auth";
+import Comment from "./Comment";
+import { timeAgo } from "@/utils/date";
 
 const BlogItem = async ({ blog, userId }: BlogItemProps) => {
   if (!blog) {
     redirect("/blogs");
   }
-  const { id, title, content, category, user, image, likeCount, likes } = blog;
+  const { id, title, content, category, user, image, likeCount, likes, comments } = blog;
 
-  const like = userId ? "You like it like that:" : user?.name 
-  ? `${user.name} likes it like that:` 
-  : "Someone likes it like that:";
+  const like = userId ? "You hack it like that:" : user?.name 
+  ? `${user.name} hacks it:` 
+  : "Someone hacks it:";
   
   console.log("Likes", likes)
-  
   const session = await auth();
   const hasLiked = session?.user?.id ? likes.some(like => like.userId === session?.user?.id) : false;
 
@@ -53,9 +54,17 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
     </div>
     <div className={styles.blog_comments}>
         <div className={styles.comments}>
-
+            {comments.map((comment) => (
+              <div key={comment.id} className={styles.comment}> 
+              <div className={styles.comment_header}>    
+                <div className={styles.comment_author}>{comment.user.name} </div>
+                <div className={styles.comment_date}>{timeAgo( new Date(comment.createdAt))} </div>
+              </div>
+              <div className={styles.comment_content}>{comment.content} </div>
+              </div>
+            ))}
         </div>
-        <div className={styles.add_comment}></div>
+          <Comment id={id}/>
     </div>
       </div>
   );
