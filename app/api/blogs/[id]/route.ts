@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { auth } from "@/auth";
+import { getPrismaClient } from '@/utils/prismaInstance';
 
-const prisma = new PrismaClient();
+const prisma = getPrismaClient();
+// const prisma = new PrismaClient();
 
 export async function GET(request:Request, {params}: {params:{id: string}}) {
 
@@ -16,6 +18,7 @@ export async function GET(request:Request, {params}: {params:{id: string}}) {
             user: true,
             category: true,
             likes: true,
+            comments: true,
             _count: {
                 select: { likes: true },
             },

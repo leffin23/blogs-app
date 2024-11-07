@@ -1,14 +1,15 @@
 
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 
 import mime from "mime";
 import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import {  NextResponse } from "next/server";
 import { auth } from "@/auth";// Import to get session
+import { getPrismaClient } from '@/utils/prismaInstance';
 
-
-const prisma = new PrismaClient();
+const prisma = getPrismaClient();
+// const prisma = new PrismaClient();
 
 export async function GET() {
     const blogs = await prisma.blog.findMany({
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
     const content = blogData.get("content") as string;
     const image = blogData.get("image") as File || null;
     const session = await auth();
+
     console.log(session)
     console.log(session?.user)
     
