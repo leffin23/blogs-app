@@ -55,6 +55,24 @@ export async function likePost(blogId:string) {
         }
       
 }
+export async function sendComment(id: string, comment: string) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/comments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: id, comment: comment})
+    })
+
+    if(!res.ok){
+        const errorData = await res.json();
+        console.error('Failed to comment post:', errorData); 
+    }else {
+        const commentData = await res.json();
+        console.log('Comment sent successfully:', commentData);
+    }
+    
+}
 export async function deleteBlogPost(blogId: string) {
 
     try {
