@@ -10,7 +10,7 @@ const BlogsNav = async() => {
   return (
     <div className={`${styles.nav} blogs_nav`} >
     
-      <Link href={"/blogs"}>All blogs</Link>
+      <Link href={"/blogs"}>All hacks</Link>
       { categories.map((category: Category) => (
       <Link key={category.id} href={`/blogs/categories/${category.name}`}>{category.name}</Link>
       ))}

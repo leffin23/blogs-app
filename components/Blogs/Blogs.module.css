@@ -1,9 +1,12 @@
 .allBlogs{
     width: 100%;
-    height: auto;
-    padding: 3em;
+    height: 100%;
+    padding: 0 3em;
+    display: flex;
+    flex-direction: column;
     
 }
+
 .allBlogs h1{
     color:  rgb(81, 53, 53);
     text-align: center;
@@ -60,12 +63,20 @@
         max-width: 200px;   
         font-size: clamp(.9em, 1.3vw, 1.1em);             
 }
+.blogImg{
+    width: 100px;
+    height: auto;  
+    display: flex;
+    justify-items: center;
+    margin: 0 auto;
+}
 .blog_info img{
     object-fit: cover;
     padding-top: .5em;
     width: 100%;
     height: 100%;
 }
+
 .full{
     align-self: flex-end;
     margin-right: 1em;
@@ -413,11 +424,12 @@
    aspect-ratio: 2/1;
 }
 .noBlogs{
+    display: flex;
     height: 100%;
-    margin-top: 50%;
+    margin: auto;
     text-align: center;
-    display: block;
     align-items: center;
+
 }
 @media screen and (max-width: 768px) {
 

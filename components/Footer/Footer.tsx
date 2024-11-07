@@ -8,7 +8,7 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-        <Link className={styles.name} href={'/'}>iLike</Link>
+        <Link className={styles.name} href={'/'}>iHack</Link>
       <div className={styles.socials}>
         <Link href="https//:gmail.com"><FontAwesomeIcon icon={faEnvelope} /></Link>
         <Link href="https//:instagram.com"> <FontAwesomeIcon icon={faInstagram} /></Link>

@@ -9,6 +9,7 @@ interface BlogsProps {
   categoryName?: string; 
   userId?:string;
 }
+
 const Blogs = async({categoryName, userId}:BlogsProps) => {
   const blogs: Blog[] = await getBlogs(categoryName, userId);
   const p = userId ? "You didn't create any blogs yet.." :"No blogs available"
@@ -21,7 +22,7 @@ const Blogs = async({categoryName, userId}:BlogsProps) => {
   }
   return (
     <div className={styles.allBlogs}>
-          { userId ? (  <h1>My blogs</h1>) : (
+          { userId ? (  <h1>My hacks</h1>) : (
             <h1>{categoryName ? `${categoryName} blogs` : "All blogs"}</h1>)}
       {blogs.length === 0? (
         <p className={styles.noBlogs}>{p}</p>

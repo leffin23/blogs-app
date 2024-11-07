@@ -7,6 +7,7 @@ import styles from "./Blogs.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -81,7 +82,7 @@ const CreateBlog = () => {
     <div className={styles.createPage}>
       <div className={styles.burger}><Image src="/logo.png" alt="logo" fill/></div>
       <div className={styles.burger_border}></div>
-      <h1>Create a new Blog</h1>
+      <h1>Create a new Hack</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <label htmlFor="title">Title</label>

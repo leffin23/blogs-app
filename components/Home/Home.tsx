@@ -9,8 +9,8 @@ const HomePage = async() => {
   return (
     <div className={styles.container}>
       <section className={`${styles.section} ${styles.hero}`}>
-        <h1><span>iLike</span> it like that!</h1>
-        <p>Share your custom cravings with others</p>
+        <h1><span>iHack</span> it like that!</h1>
+        <p>Share your life hacks with others</p>
       </section>
       <section className={`${styles.section} ${styles.about}`}>
         

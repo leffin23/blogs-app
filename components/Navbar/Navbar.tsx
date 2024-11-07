@@ -25,7 +25,7 @@ const Navbar = async () => {
         </div>
        
         <div>
-          <Link href={"/blogs"}>Blogs</Link>
+          <Link href={"/blogs"}>Hacks</Link>
         </div>
         {/* <SignedOut>
             <SignInButton mode="modal">
@@ -38,7 +38,7 @@ const Navbar = async () => {
         {session && session?.user ? (
           <>
             <div>
-              <Link href={"/blogs/my-blogs"}>My blogs</Link>
+              <Link href={"/blogs/my-blogs"}>My hacks</Link>
             </div>
             <div>
             <div>
