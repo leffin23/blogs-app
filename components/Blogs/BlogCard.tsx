@@ -10,7 +10,7 @@ const BlogCard: React.FC<BlogItemProps> = ({ blog }) => {
   return (
  <div className={styles.blog}>
       <div className={styles.header}><h2>{title}</h2></div>
-      {user?.name ? <p className={styles.likes}>{user.name} hacks it like that:</p> : ""}
+      {user?.name ? <p className={styles.likes}>{user.name} hacks it:</p> : ""}
       <div className={styles.blog_info}>
       <p>{content}</p>
       {/* {category?.name && <p>Category: {category.name}</p>} */}

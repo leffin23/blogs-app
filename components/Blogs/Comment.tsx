@@ -13,7 +13,7 @@ const Comment = ({id}: Comment) => {
 
   return (
     <form className={styles.add_comment} onSubmit={(e) => e.preventDefault()}>
-      <textarea name="comment" id="comment" value={comment} required onChange={(e)=> setComment(e.target.value)}></textarea>
+      <textarea placeholder="Type your comment.." name="comment" id="comment" value={comment} required onChange={(e)=> setComment(e.target.value)}></textarea>
       <ButtonCheckAuth logic={"comment"} blogId={id} comment={comment} clearComment={setComment}>
         <button type="submit" aria-label="Send">
           <FontAwesomeIcon icon={faPaperPlane} />

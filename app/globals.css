@@ -103,18 +103,27 @@ main{
 }
 .hamburger{
     visibility: visible;
+    cursor: pointer;
 }
 .active{
-    width: 100px !important;
+    width: fit-content !important;
     position: fixed;
+}
+ .search{
+
+  visibility: hidden;
+}
+.active .search{
+  margin-top: 3.5em;
+  visibility: visible !important;
 }
 .active a{
     visibility: visible !important;
     opacity: 100% !important;
 }
-.blogs_nav a:first-child{
+/* .blogs_nav a:first-child{
   margin-top: 2.6em;
-}
+} */
 .blog_section{
   padding-left: 40px;
 }
