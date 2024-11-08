@@ -6,10 +6,11 @@ export async function getBlogs(categoryName?: string, userId?:string) {
         console.log(url)
     }else{
         url = categoryName ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${categoryName}` : `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`;
+        console.log(url)
     }
 
     const res = await fetch(url);
-    
+    console.log(res)
     if (!res.ok) {
         console.error('Failed to fetch blogs:', res.statusText);
         throw new Error(`Failed to fetch blogs: ${res.statusText}`);
@@ -17,6 +18,7 @@ export async function getBlogs(categoryName?: string, userId?:string) {
 
     try {
         let data = await res.json();
+        console.log(data)
         data = userId ? data.blogs : data
         return categoryName ? data.blogs : data; 
     } catch (err) {
