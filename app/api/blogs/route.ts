@@ -6,9 +6,10 @@ import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import {  NextResponse } from "next/server";
 import { auth } from "@/auth";// Import to get session
-import { getPrismaClient } from '@/utils/prismaInstance';
+import prisma from "@/utils/prismaInstance"
+// import { getPrismaClient } from '@/utils/prismaInstance';
 
-const prisma = getPrismaClient();
+// const prisma = getPrismaClient();
 // const prisma = new PrismaClient();
 
 export async function GET() {
