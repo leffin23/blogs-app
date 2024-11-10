@@ -9,14 +9,17 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 
 const CreateBlog = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [hackDetails, setHackDetails] = useState({
+    title: "",
+    content: "",
+    image: null as File | null,
+    tags: "",
+    category: ""
+  })
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,18 +34,62 @@ const CreateBlog = () => {
     fetchCategories();
   }, []);
 
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setHackDetails((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setHackDetails((prevState) => ({
+        ...prevState,
+        image: file,
+      }));
+    }
+  };
+  
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();  
+    e.stopPropagation(); 
+    console.log("File dropped", e.dataTransfer.files);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith("image/")) {
+      console.log("Image file detected:", file);
+      setHackDetails((prevState) => ({
+        ...prevState,
+        image: file,
+      }));
+    } else {
+      alert("Please upload an image file (*.jpg, jpeg, png, svg).");
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    console.log("Dragging over drop zone...");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("category", category);
-    if (image) {
-      formData.append("image", image);
+    formData.append("title", hackDetails.title);
+    formData.append("content", hackDetails.content);
+    formData.append("category", hackDetails.category);
+    if (hackDetails.image) {
+      formData.append("image", hackDetails.image);
     }
+    if (hackDetails.tags) {
+      formData.append("tags", hackDetails.tags);
+    }
+
 
     try {
       const response = await fetch("/api/blogs", {
@@ -63,54 +110,74 @@ const CreateBlog = () => {
     }
   };
   
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setImage(e.dataTransfer.files[0]);
-    } else {
-      alert("Please upload an image file (*.jpg, jpeg, png, svg).");
-    }
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-    }
-  };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
   return (
     <div className={styles.createPage}>
-      <div className={styles.burger}><Image src="/logo.png" alt="logo" fill/></div>
+      <div className={styles.burger}><Image src="/logo2.png" alt="logo" fill/></div>
       <div className={styles.burger_border}></div>
       <h1>Create a new Hack</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
-          <label htmlFor="title">Title</label>
-          <input
+          <input aria-label="title"
+          placeholder="Enter a title"
             type="text"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+             name="title"
+            value={hackDetails.title}
+            onChange={handleChange}
             required
           />
         </div>
 
-        <div>
-          <label htmlFor="content">Content</label>
+        <div className={styles.create_content}>
           <textarea
+          aria-label="content"
+            placeholder="Describe your life hack"
             id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+             name="content"
+            value={hackDetails.content}
+            onChange={handleChange}
             required
           />
-        </div>
+        <div>
+          <label htmlFor="image"               onDrop={handleDrop}
+              onDragOver={handleDragOver}>
+            Image
+            <div
+              className={styles.file}
 
+            >
+              <p>
+                {hackDetails.image
+                  ? hackDetails.image.name
+                  : "Upload an image"}
+              </p>
+              <div>
+                <FontAwesomeIcon icon={faUpload} />
+              </div>
+            </div>
+          </label>
+
+          <input
+            type="file"
+            id="image"
+             name="image"
+            accept="image/*"
+
+            onChange={handleFileChange}
+
+          />
+          <span></span>
+        </div>
+        </div>
+        <div className={styles.create_content}>
         <div>
           <label htmlFor="category">Category</label>
           <select
             id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+             name="category"
+            value={hackDetails.category}
+            onChange={handleChange}
             required
           >
             <option value="">Select a category</option>
@@ -121,40 +188,20 @@ const CreateBlog = () => {
             ))}
           </select>
         </div>
-
-        <div>
-          <label htmlFor="image">
-            Image
-            <div
-              className={styles.file}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-            >
-              {" "}
-              <p>
-                {image
-                  ? image.name
-                  : "Drag and drop an image or click to upload"}
-              </p>{" "}
-              <div>
-                <FontAwesomeIcon icon={faUpload} />
-              </div>
-            </div>
-          </label>
-
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(e) => {
-              if (e.target.files) {
-                setImage(e.target.files[0]);
-              }
-            }}
+            <div className={styles.tags}>
+            <label htmlFor="tags">Tags</label>
+            <input aria-label="tags"
+            placeholder="Enter tags"
+            type="text"
+            id="tags"
+            name="tags"
+            value={hackDetails.tags}
+            onChange={handleChange}
+            required
           />
-          <span></span>
+            </div>
+          
         </div>
-
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button type="submit" disabled={loading}>

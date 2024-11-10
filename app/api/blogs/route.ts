@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     const title = blogData.get("title") as string;
     const category = blogData.get("category") as string;
     const content = blogData.get("content") as string;
+    const tags = blogData.get("tags") as string;
     const image = blogData.get("image") as File || null;
     const session = await auth();
 
@@ -89,6 +90,7 @@ export async function POST(request: Request) {
             data: {
                 title,
                 content,
+                ...(tags? {tags: tags} : {}),
                 user: { connect: { clerkUserId: session.user.id } },
                 category: { connect: { id: category } },
                 ...(fileUrl ? { image: fileUrl } : {}), 

@@ -14,8 +14,10 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
   if (!blog) {
     redirect("/blogs");
   }
-  const { id, title, content, category, user, image, likeCount, likes, comments } = blog;
+  const { id, title, content, category, user, image, likeCount, likes, comments, tags } = blog;
 
+
+  const tagsArr = tags?.split(" ");
   const like = userId ? "You hack it like that:" : user?.name 
   ? `${user.name} hacks it:` 
   : "Someone hacks it:";
@@ -49,7 +51,9 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
       <p>{content}</p>
       {category?.name && <p>Category: {category.name}</p>}
       {image ? <Image unoptimized={true} src={image} alt={title} width={100} height={100} /> : ""}
-      
+      <div className={styles.tags}>
+        {tagsArr?.map((tag:string, i:number) => <div className={styles.tag} key={i}>#{tag}</div>)}
+      </div>
     
     </div>
     <div className={styles.blog_comments}>

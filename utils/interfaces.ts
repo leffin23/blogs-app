@@ -13,6 +13,7 @@ export interface Blog {
       name?: string;
     };
     image?: string; 
+    tags?: string;
     likeCount: string;
     likes: Like[];
     comments: Array<{

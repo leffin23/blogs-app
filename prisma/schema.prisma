@@ -33,6 +33,7 @@ model Blog{
   title String
   content String
   image String? 
+  tags String?
   userId String
   user User @relation(fields: [userId], references: [clerkUserId])
   categoryId String
