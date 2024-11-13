@@ -16,8 +16,8 @@ const HomePage = async() => {
         
         <Image src="/logo3.png"  width={100} height={100} alt='Custom burger' unoptimized={true}/>
         <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, quaerat facilis labore tenetur nulla necessitatibus! Numquam quisquam, esse minima quaerat delectus accusantium officiis ipsam fugiat quasi aspernatur reprehenderit. Iste, maxime!
-          Sit incidunt modi ab eum, eius soluta voluptas deleniti ratione vel omnis quas, nobis ullam saepe? Provident nisi aliquid numquam, placeat quae distinctio nemo, harum dolores non minus maxime minima.
+        Welcome to iHack, the platform where you can share your creative life hacks with a community eager to learn and improve everyday life. Whether you're looking for tips to optimize your 
+        work productivity, save time in the kitchen, or organize your home, iHack provides a space for people to share and discover useful tricks. Our mission is to help you live smarter, save resources, and make the most out of every day. Join us, share your best hacks, and learn from others!
          </div>
       </section>
       <section  className={`${styles.section} ${styles.popular}`}>
