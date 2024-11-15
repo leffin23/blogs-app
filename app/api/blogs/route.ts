@@ -41,8 +41,8 @@ export async function POST(request: Request) {
     const image = blogData.get("image") as File || null;
     const session = await auth();
 
-    console.log(session)
-    console.log(session?.user)
+    // console.log(session)
+    // console.log(session?.user)
     
     if (!session  || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

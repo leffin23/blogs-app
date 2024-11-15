@@ -3,26 +3,32 @@ import { NextResponse } from 'next/server';
 import prisma from "@/utils/prismaInstance"
 import { auth } from '@/auth';
 
-export async function GET(req: Request) {
-   
-    const session = await auth();
 
-    const limit = 10;
+export async function GET(req: Request, {params}: {params: {userId: string}}) {
+    const {userId} = await params
 
-    if (!session || !session.user || !session.user.id) {
+    if (!userId) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 400 });
     }
-    const userId = session.user.id;
+
+    console.log(userId)
+    const limit = 10;
+
     try {
         const recentLikedPosts = await prisma.like.findMany({
             where: { userId },
             orderBy: { createdAt: 'desc' },
             take: limit,
             include: {
-                blog: true,
+                blog: {
+                    include: {
+                        category: true,
+                        user: true
+                    },},
             },
         });
 
+        console.log("Liked: ", recentLikedPosts)
         return NextResponse.json(recentLikedPosts.map(like => like.blog));
     } catch (error) {
         console.error(error);

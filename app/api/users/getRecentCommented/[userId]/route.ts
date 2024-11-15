@@ -1,25 +1,33 @@
 import { NextResponse } from 'next/server';
 import prisma from "@/utils/prismaInstance"
-import { auth } from '@/auth';
 
-export async function GET(req: Request) {
-   
-    const session = await auth();
+export async function GET(req: Request, {params}:{params: {userId: string}}) {
+
+
+    const {userId} = await params
+
+    if (!userId) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 400 });
+    }
 
     const limit = 10;
-
-    if (!session || !session.user || !session.user.id) {
-        return NextResponse.json({ error: "Not authenticated" }, { status: 400 });
-    }
-    const userId = session.user.id;
     try {
         const recentLikedPosts = await prisma.comment.findMany({
             where: { userId },
             orderBy: { createdAt: 'desc' },
             take: limit,
+            distinct: ['blogId'],
             include: {
-                blog: true,
+                blog: {
+                include: {
+                    category: true,
+                    user: true
+                },},
+        
+
+    
             },
+        
         });
 
         return NextResponse.json(recentLikedPosts.map(comment => comment.blog));

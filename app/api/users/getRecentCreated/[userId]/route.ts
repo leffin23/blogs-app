@@ -1,22 +1,22 @@
 import { NextResponse } from 'next/server';
 import prisma from "@/utils/prismaInstance"
-import { auth } from '@/auth';
 
-export async function GET(req: Request, limit:number) {
+export async function GET(req: Request, {params}: {params: {userId: string}}) {
    
-    const session = await auth();
-    // const limit = 10;
-
-    if (!session || !session.user || !session.user.id) {
+    const {userId} = await params
+    const limit = 10;
+    if (!userId) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 400 });
     }
-
-    const userId = session.user.id;
 
     try {
         const recentCreatedPosts = await prisma.blog.findMany({
             where: { userId },
             orderBy: { createdAt: 'desc' },
+            include: {
+                category: true,
+                user: true,
+            },
             take: limit,
         });
 

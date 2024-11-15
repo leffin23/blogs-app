@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/prismaInstance";
 
-export async function GET(req:Request, limit: number) {
+
+export async function GET(req:Request) {
+    const limit = 10;
     try{
         const recentBlogs = await prisma.blog.findMany({
             include: {
@@ -17,12 +19,12 @@ export async function GET(req:Request, limit: number) {
             take: limit
         })
     
-        const recentWithLikes = recentBlogs.map((blog) => ({
+        const blogsWithLikes = recentBlogs.map((blog) => ({
             ...blog,
-            likeCount: blog._count.likes
-        }))
+            likeCount: blog._count.likes,
+        }));
     
-        return NextResponse.json({recentWithLikes})
+        return NextResponse.json(blogsWithLikes)
     }catch(error){
         return NextResponse.json({error: "Couldn't fetch recent blogs"}) 
     }
