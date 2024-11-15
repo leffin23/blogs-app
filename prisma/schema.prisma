@@ -21,6 +21,7 @@ model User {
   clerkUserId String @unique
   email String @unique
   name String?
+  image String?
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
   blogs Blog []

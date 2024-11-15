@@ -13,7 +13,9 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - uploads-data:/blogs-app/public/uploads 
+      # - .:/blogs-app
+      # - /blogs-app/node_modules
+      - ./public/uploads:/blogs-app/public/uploads
     networks:
       - my-network
     develop:

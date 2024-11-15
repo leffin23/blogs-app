@@ -7,6 +7,7 @@ export interface Blog {
     content: string;
     user?: {
       name?: string;
+      image?:string;
       clerkUserId?: string
     };
     category?: {
@@ -15,13 +16,15 @@ export interface Blog {
     image?: string; 
     tags?: string;
     likeCount: string;
+    commentCount: string;
+    createdAt: Date;
     likes: Like[];
     comments: Array<{
       id: string;
       content: string;
       userId: string;
       createdAt: Date;
-      user: { name: string }; 
+      user: { name: string, image?: string }; 
   }>;
   }
   export interface BlogItemProps {

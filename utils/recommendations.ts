@@ -1,5 +1,5 @@
 
-import { fetchRecentLikedPosts, fetchRecentCommentedPosts, fetchRecentCreatedPosts, fetchRecentBlogs, fetchRecentPosts, fetchPopularPosts } from "@/utils/api";
+import { fetchRecentLikedPosts, fetchRecentCommentedPosts, fetchRecentCreatedPosts, fetchRecentPosts, fetchPopularPosts } from "@/utils/api";
 import { Blog } from "./interfaces";
 import { auth } from "@/auth";
 
@@ -39,7 +39,7 @@ export async function getContentBasedRecommendations(): Promise<Blog[]> {
 
         recentInteractions.forEach((post) => {
             // Collect unique categories
-            console.log("Post", post)
+            // console.log("Post", post)
             if (post.category?.name) categorySet.add(post.category.name);
             // Collect unique tags, split and trimmed
             if (post.tags) {
@@ -47,8 +47,8 @@ export async function getContentBasedRecommendations(): Promise<Blog[]> {
             }
         });
 
-        console.log("Categry: ", categorySet)
-        console.log("Tags: ", tagSet)
+        // console.log("Categry: ", categorySet)
+        // console.log("Tags: ", tagSet)
 
         // Fetch recent posts (to be filtered and scored)
         const recentPosts: Blog[] = await fetchRecentPosts(10);
@@ -66,13 +66,13 @@ export async function getContentBasedRecommendations(): Promise<Blog[]> {
                 
                 const postTagsArray = post.tags ? post.tags.split(' ').map((tag) => tag.trim()) : [];
                 const tagMatches = postTagsArray.filter((tag) => tagSet.has(tag)).length;
-                console.log(categorySet)
+                // console.log(categorySet)
                 const categoryMatch = post.category?.name && categorySet.has(post.category.name) ? 1 : 0;
-                console.log(categoryMatch)
+                // console.log(categoryMatch)
 
                 // Calculate the similarity score based on tag and category matches
                 const similarityScore = tagMatches + categoryMatch;
-                console.log("Similarity score", similarityScore)
+                // console.log("Similarity score", similarityScore)
 
 
                 return { post, similarityScore };
@@ -82,22 +82,16 @@ export async function getContentBasedRecommendations(): Promise<Blog[]> {
             .map(({ post }) => post);
 
             const minRecommendations =  6;
-            console.log(scoredPosts)
+            // console.log(scoredPosts)
             if(scoredPosts.length < minRecommendations){
                 const addPopular = await fetchPopularPosts(minRecommendations + scoredPosts.length);
-                // const filteredPopular = addPopular.filter((addPost: Blog) => {
-                //     return !scoredPosts.some((scoredPost) => {
-                       
-                //         scoredPost.id === addPost.id
-                //     })
-                // })
                 const filteredPopular = addPopular.filter((addPost: Blog) => 
                     
                     !scoredPosts.some((scoredPost) => {
-                        console.log(scoredPost.id, " === ", addPost.id, ": ",   scoredPost.id === addPost.id)
+                        // console.log(scoredPost.id, " === ", addPost.id, ": ",   scoredPost.id === addPost.id)
                         return scoredPost.id === addPost.id})
                 );
-                console.log(filteredPopular)
+                // console.log(filteredPopular)
                 scoredPosts.push(...filteredPopular);
                 scoredPosts = scoredPosts.slice(0, minRecommendations);
             }

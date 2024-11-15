@@ -111,7 +111,7 @@ export const fetchRecentCommentedPosts = async (userId: string) => {
 };
 
 export const fetchRecentCreatedPosts = async (userId: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getRecentCreated${userId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getRecentCreated/${userId}`);
     return await response.json();
 };
 
