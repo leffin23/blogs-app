@@ -115,7 +115,12 @@ export const fetchRecentCreatedPosts = async (userId: string) => {
     return await response.json();
 };
 
-export const fetchRecentBlogs = async(limit: number) => {
+export const fetchRecentPosts = async(limit: number) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/getRecent`)
+    return await response.json()
+}
+
+export const fetchPopularPosts = async(limit: number) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/getPopular?limit=${limit}`)
     return await response.json()
 }
