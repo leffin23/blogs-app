@@ -10,7 +10,7 @@ export async function getBlogs(categoryName?: string, userId?:string) {
     }
 
     const res = await fetch(url);
-    console.log(res)
+    // console.log(res)
     if (!res.ok) {
         console.error('Failed to fetch blogs:', res.statusText);
         throw new Error(`Failed to fetch blogs: ${res.statusText}`);
@@ -18,7 +18,7 @@ export async function getBlogs(categoryName?: string, userId?:string) {
 
     try {
         let data = await res.json();
-        console.log(data)
+        // console.log(data)
         data = userId ? data.blogs : data
         return categoryName ? data.blogs : data; 
     } catch (err) {
@@ -97,4 +97,25 @@ export async function deleteBlogPost(blogId: string) {
     } catch (error) {
         console.error('Error:', error.message); 
     }
+}
+
+export const fetchRecentLikedPosts = async (userId: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getRecentLiked/${userId}`);
+    console.log(response)
+    return await response.json();
+};
+
+export const fetchRecentCommentedPosts = async (userId: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getRecentCommented/${userId}`);
+    return await response.json();
+};
+
+export const fetchRecentCreatedPosts = async (userId: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getRecentCreated${userId}`);
+    return await response.json();
+};
+
+export const fetchRecentBlogs = async(limit: number) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/getRecent`)
+    return await response.json()
 }
