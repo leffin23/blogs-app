@@ -188,7 +188,7 @@ const CreateBlog = () => {
             ))}
           </select>
         </div>
-            <div className={styles.tags}>
+        <div className={styles.create_tags}>
             <label htmlFor="tags">Tags</label>
             <input aria-label="tags"
             placeholder="Enter tags"
@@ -197,7 +197,7 @@ const CreateBlog = () => {
             name="tags"
             value={hackDetails.tags}
             onChange={handleChange}
-            required
+      
           />
             </div>
           

@@ -15,7 +15,6 @@
     padding: 1em;
     width: 100%;
     /* column-count: 3; */
-
     display: flex;
     justify-content: center;
     gap: 3em;
@@ -24,11 +23,11 @@
 }
 .blog{
     /* margin: 1em; */
-    width: clamp(200px, 20vw, 400px);
-    min-width: min(250px, 350px);
+    width: clamp(300px, 30vw, 500px);
+    /* min-width: min(250px, 350px); */
     background-color: rgb(251, 253, 255);
     border-radius: 10px;
-    padding-bottom:1em;
+    padding-bottom:.5em;
     box-shadow: -2px 3px 5px rgba(0, 0, 0, .4);
     display: flex;
     flex-direction: column;
@@ -50,6 +49,7 @@
     pointer-events: none;
     z-index: 1;
 }
+
 .blog_info{
     padding: .5em 1em 0;
 
@@ -76,11 +76,37 @@
     width: 100%;
     height: 100%;
 }
-
-.full{
-    align-self: flex-end;
-    margin-right: 1em;
+.footer{
+    width: 100%;
     margin-top: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em;
+}
+.interactions{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    font-size: 1em;
+    width: 50%;
+    align-self: flex-end;
+}
+.interactions div{
+    display: flex;
+    gap:.1em;
+    align-items: center;
+    color: rgb(169, 162, 184);
+}
+
+.interactions svg{
+    height: .9em;
+    width: auto;
+
+}
+.full{
+    /* align-self: flex-end; */
+    /* margin-right: 1em; */
     padding: .5em;
     background-color:   rgb(255, 219, 129);
     border-radius: 10px;
@@ -102,9 +128,31 @@
 }
 .header{
     width: 100%;
-    padding-top:.5em;
     background-color:   rgb(255, 219, 129);
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .2em .5em;
+
+}
+.username{
+    display: flex;
+    align-items: center;
+    gap: .3em;
+
+}
+.username img{
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+.user_nick{
+    font-size: 16px;
+}
+.blog_date{
+    font-weight: 600;
+    font-size: 16px;
 }
 .header h2{
     font-size: clamp(1.05em, 1.3vw, 1.3em);
@@ -361,8 +409,22 @@
     border-radius: 10px;
     
 }
+.comment_image{
+ 
+    display: flex;
+    align-items: flex-start;
+    gap: .2em;
+}
+.comment_noimage{
+    width: 100%;
+}
+.comment_image img{
+    border-radius: 100%;
+    
+}
 .comment_header{
     display: flex;
+    width: 100%;
     font-size: clamp(.9em, 1.1vw, 1em);
     justify-content: space-between;
 }

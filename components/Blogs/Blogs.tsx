@@ -19,7 +19,6 @@ const Blogs = async ({ categoryName, userId, personal }: BlogsProps) => {
     console.log('Personal')
     blogs = await getContentBasedRecommendations();
   }else{
-    console.log('All')
     blogs = await getBlogs(categoryName, userId);
   }
   const caption = personal ? "Hacks feed" : "All blogs"
