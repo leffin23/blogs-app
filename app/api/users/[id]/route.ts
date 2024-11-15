@@ -13,12 +13,34 @@ export async function GET(request:Request, {params} : {params: {id: string}}) {
             clerkUserId: id
         },
         include:{
-            blogs: true
+            blogs: {
+                include: {
+                    _count: {
+                        select: {
+                            likes: true,
+                            comments: true,    
+                        }
+
+                    }
+                }
+            }
         }
     })
 
-    
-    return NextResponse.json(userInfo)
+    if (!userInfo) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 });
+      }
+
+    const transformedUserInfo = {
+        ...userInfo,
+        blogs: userInfo?.blogs.map((blog) => ({
+          ...blog,
+          likeCount: blog._count?.likes ?? 0,
+          commentCount: blog._count?.comments ?? 0,
+        })),
+      };
+      
+    return NextResponse.json(transformedUserInfo)
     
 }
 

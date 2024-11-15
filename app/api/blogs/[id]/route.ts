@@ -25,7 +25,7 @@ export async function GET(request:Request, {params}: {params:{id: string}}) {
                 }
             },
             _count: {
-                select: { likes: true },
+                select: { likes: true, comments:true },
             },
         },
     })
@@ -37,6 +37,7 @@ export async function GET(request:Request, {params}: {params:{id: string}}) {
     const blogWithLikes = {
         ...blogInfo,
         likeCount: blogInfo._count.likes,
+        commentCount: blogInfo._count.comments,
     };
 
     return NextResponse.json(blogWithLikes)

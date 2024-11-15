@@ -10,7 +10,7 @@ export async function GET(req:Request) {
                 user: true,
                 category: true,
                 _count: {
-                    select: {likes: true}
+                    select: {likes: true, comments: true}
                 }
             },
             orderBy: {
@@ -22,6 +22,7 @@ export async function GET(req:Request) {
         const blogsWithLikes = recentBlogs.map((blog) => ({
             ...blog,
             likeCount: blog._count.likes,
+            commentCount: blog._count.comments,
         }));
     
         return NextResponse.json(blogsWithLikes)

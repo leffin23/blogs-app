@@ -4,14 +4,15 @@ import prisma from "@/utils/prismaInstance"
 export async function GET(req: Request, {params}: {params: {userId: string}}) {
    
     const {userId} = await params
+
     const limit = 10;
     if (!userId) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 400 });
     }
-
+    console.log("UserId:", userId);
     try {
         const recentCreatedPosts = await prisma.blog.findMany({
-            where: { userId },
+            where: { userId: userId },
             orderBy: { createdAt: 'desc' },
             include: {
                 category: true,
@@ -19,7 +20,7 @@ export async function GET(req: Request, {params}: {params: {userId: string}}) {
             },
             take: limit,
         });
-
+        console.log(recentCreatedPosts)
         return NextResponse.json(recentCreatedPosts);
     } catch (error) {
         console.error(error);

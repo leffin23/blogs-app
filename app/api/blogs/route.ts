@@ -18,7 +18,10 @@ export async function GET() {
             user: true,
             category: true,
              _count: {
-                select: { likes: true },
+                select: { 
+                    likes: true,
+                    comments: true,
+                },
             },
         },
     })
@@ -26,6 +29,7 @@ export async function GET() {
     const blogsWithLikes = blogs.map((blog) => ({
         ...blog,
         likeCount: blog._count.likes,
+        commentCount: blog._count.comments,
     }));
 
     return NextResponse.json(blogsWithLikes)
