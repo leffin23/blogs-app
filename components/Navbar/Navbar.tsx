@@ -25,7 +25,7 @@ const Navbar = async () => {
         </div>
        
         <div>
-          <Link href={"/blogs"}>Hacks</Link>
+          <Link href={session && session?.user ? "/blogs/personal": "/blogs"}>Hacks</Link>
         </div>
         {/* <SignedOut>
             <SignInButton mode="modal">
@@ -46,8 +46,12 @@ const Navbar = async () => {
             </div>
             </div>
             <div className={styles.user}>
-              <Link href={`/user/${session?.user.id}`} >
+              <Link href={`/user/${session?.user.id}`} className={styles.user_info}>
                 <span>{session?.user?.name}</span>
+                {session.user?.image && 
+                 <Image className={styles.image} src={session?.user?.image} alt="user profile image" width={40} height={40}/>
+                }
+               
               </Link>
             </div>
           </>

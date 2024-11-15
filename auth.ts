@@ -33,7 +33,14 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 clerkUserId: account.providerAccountId!,
                 email: user.email!,
                 name: user.name,
+                image: user.image,
               },
+            });
+          }
+          else if (existingUser.image !== user.image) {
+            await prisma.user.update({
+              where: { email: user.email! },
+              data: { image: user.image },
             });
           }
           return true;
@@ -46,6 +53,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
           });
           if(dbUser){
             session.user.id = dbUser.clerkUserId; 
+            session.user.image = dbUser.image;
             return session;
           }
           return session;

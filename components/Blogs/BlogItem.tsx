@@ -59,13 +59,18 @@ const BlogItem = async ({ blog, userId }: BlogItemProps) => {
     <div className={styles.blog_comments}>
         <div className={styles.comments}>
             {comments.map((comment) => (
-              <div key={comment.id} className={styles.comment}> 
+              <div key={comment.id} className={styles.comment}>
+              <div className={styles.comment_image}>
+              {comment.user.image && <Image src={comment.user.image} width={35} height={35} alt="User profile image"/>}
+      
+              <div className={styles.comment_noimage}>
               <div className={styles.comment_header}>    
                 <div className={styles.comment_author}>{comment.user.name} </div>
                 <div className={styles.comment_date}>{timeAgo( new Date(comment.createdAt))} </div>
               </div>
               <div className={styles.comment_content}>{comment.content} </div>
               </div>
+              </div></div> 
             ))}
         </div>
           <Comment id={id}/>

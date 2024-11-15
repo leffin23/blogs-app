@@ -52,13 +52,27 @@
 .nav div:hover{
    color: rgb(255, 191, 0);
 }
+.user:hover .image{
+    border-color: rgb(255, 191, 0);;
+    
+}
 .nav div:nth-child(1){
     margin-right: auto;
 }
 .login_btn{
     cursor: pointer;
 }
+.image{
+    border-radius: 100%;
+    border: 2px solid rgb(246, 204, 136);;
+    transition: all .3s ease;
+}
 
+.user_info{
+    display: flex;
+    align-items: center;
+    gap: .5em
+}
 @media screen and (max-width: 768px) {
 .user{
     display: none;
