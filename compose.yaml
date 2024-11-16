@@ -15,7 +15,7 @@ services:
     volumes:
       # - .:/blogs-app
       # - /blogs-app/node_modules
-      - ./public/uploads:/blogs-app/public/uploads
+      - uploads-data:/bloggs-app/public/uploads
     networks:
       - my-network
     develop:

@@ -378,6 +378,21 @@
     border-radius: 10px;
     padding: .3em .5em;
 }
+.progress{
+    width: 300px;
+}
+.progress_bar{
+    width: 100%;
+    height: 1em;
+    background-color: rgb(251, 234, 181);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress_running{
+    transition: all .3s ease;
+    height: 1em;
+    background-color: rgb(253, 218, 115);
+}
 .blog_comments{
     background-color: rgb(252, 232, 209);
     display: flex;

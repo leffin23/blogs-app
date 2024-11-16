@@ -24,6 +24,8 @@ const ManageBlogBtns = ({blogId}: ButtonsProps) => {
             setLoading(true)
         }
     }
+
+    
   return (
     <div className={styles.btns}>
        <button onClick={(e) => handleDelete(e)} disabled={loading}> {loading ? "Deleting..." : "Delete"}  <FontAwesomeIcon icon={faTrashCan}  /></button>

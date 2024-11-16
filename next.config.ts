@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: '', // Leave empty unless the URL has a specific port
         pathname: '**', // Allow all paths
       },
+      {
+        protocol: 'https',
+        hostname: 'files.edgestore.dev',
+        port: '', // Leave empty unless the URL has a specific port
+        pathname: '**', // Allow all paths
+      },
     ],
   },
 };

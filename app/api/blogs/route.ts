@@ -42,7 +42,8 @@ export async function POST(request: Request) {
     const category = blogData.get("category") as string;
     const content = blogData.get("content") as string;
     const tags = blogData.get("tags") as string;
-    const image = blogData.get("image") as File || null;
+    // const image = blogData.get("image") as File || null;
+    const imageUrl = blogData.get("imageUrl") as string || null
     const session = await auth();
 
     // console.log(session)
@@ -52,41 +53,41 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    let fileUrl: string | null = null; 
+    // let fileUrl: string | null = null; 
 
-    if (image) {
-        const buffer = Buffer.from(await image.arrayBuffer());
-        const relativeUploadDir = `/uploads/${new Date(Date.now())
-            .toLocaleDateString("id-ID", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            })
-            .replace(/\//g, "-")}`;
+    // if (image) {
+    //     const buffer = Buffer.from(await image.arrayBuffer());
+    //     const relativeUploadDir = `/uploads/${new Date(Date.now())
+    //         .toLocaleDateString("id-ID", {
+    //             day: "2-digit",
+    //             month: "2-digit",
+    //             year: "numeric",
+    //         })
+    //         .replace(/\//g, "-")}`;
 
-        const uploadDir = join(process.cwd(), "public", relativeUploadDir);
+    //     const uploadDir = join(process.cwd(), "public", relativeUploadDir);
 
-        try {
-            await stat(uploadDir);
-        } catch (e: any) {
-            if (e.code === "ENOENT") {
-                await mkdir(uploadDir, { recursive: true });
-            } else {
-                console.error("Error while trying to create directory when uploading a file\n", e);
-                return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
-            }
-        }
+    //     try {
+    //         await stat(uploadDir);
+    //     } catch (e: any) {
+    //         if (e.code === "ENOENT") {
+    //             await mkdir(uploadDir, { recursive: true });
+    //         } else {
+    //             console.error("Error while trying to create directory when uploading a file\n", e);
+    //             return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
+    //         }
+    //     }
 
-        try {
-            const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-            const filename = `${image.name.replace(/\.[^/.]+$/, "")}-${uniqueSuffix}.${mime.getExtension(image.type)}`;
-            await writeFile(`${uploadDir}/${filename}`, buffer);
-            fileUrl = `${relativeUploadDir}/${filename}`; 
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            return NextResponse.json({ error: 'Could not upload image' }, { status: 500 });
-        }
-    }
+    //     try {
+    //         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    //         const filename = `${image.name.replace(/\.[^/.]+$/, "")}-${uniqueSuffix}.${mime.getExtension(image.type)}`;
+    //         await writeFile(`${uploadDir}/${filename}`, buffer);
+    //         fileUrl = `${relativeUploadDir}/${filename}`; 
+    //     } catch (error) {
+    //         console.error('Error uploading image:', error);
+    //         return NextResponse.json({ error: 'Could not upload image' }, { status: 500 });
+    //     }
+    // }
 
     try {
         // Create the blog post
@@ -97,7 +98,7 @@ export async function POST(request: Request) {
                 ...(tags? {tags: tags} : {}),
                 user: { connect: { clerkUserId: session.user.id } },
                 category: { connect: { id: category } },
-                ...(fileUrl ? { image: fileUrl } : {}), 
+                ...(imageUrl ? { image: imageUrl } : {}), 
             },
         });
         return NextResponse.json({ blog: newBlog }, { status: 201 });

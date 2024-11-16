@@ -7,19 +7,23 @@ import styles from "./Blogs.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { useEdgeStore } from "@/lib/edgestore";
 
 const CreateBlog = () => {
   const [hackDetails, setHackDetails] = useState({
     title: "",
     content: "",
     image: null as File | null,
+    imageUrl: "",
     tags: "",
     category: ""
   })
+  const {edgestore} = useEdgeStore();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [categories, setCategories] = useState([]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -49,10 +53,12 @@ const CreateBlog = () => {
       setHackDetails((prevState) => ({
         ...prevState,
         image: file,
+        imageUrl: "",
       }));
+      
     }
   };
-  
+
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();  
     e.stopPropagation(); 
@@ -92,6 +98,20 @@ const CreateBlog = () => {
 
 
     try {
+    let uploadedImageUrl = "";
+
+    if (hackDetails.image) {
+      const res = await edgestore.publicFiles.upload({
+        file: hackDetails.image,
+        onProgressChange: (progress) => {
+          setProgress(progress)
+          console.log("Upload progress:", progress);
+        },
+      });
+      uploadedImageUrl = res.url; // Get the uploaded image URL
+    }
+    console.log('uploadedImageUrl')
+    formData.append("imageUrl", uploadedImageUrl);
       const response = await fetch("/api/blogs", {
         method: "POST",
         body: formData,
@@ -113,6 +133,13 @@ const CreateBlog = () => {
 
   return (
     <div className={styles.createPage}>
+      {loading ? (
+        <div className={styles.progress}> 
+        <p>Loading {progress}%</p>
+      <div className={styles.progress_bar}>
+        <div className={styles.progress_running} style={{width: `${progress}%`}}></div>
+        </div>
+      </div>) : (<div>
       <div className={styles.burger}><Image src="/logo2.png" alt="logo" fill/></div>
       <div className={styles.burger_border}></div>
       <h1>Create a new Hack</h1>
@@ -207,7 +234,7 @@ const CreateBlog = () => {
         <button type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create Blog"}
         </button>
-      </form>
+      </form></div>)}
     </div>
   );
 };
