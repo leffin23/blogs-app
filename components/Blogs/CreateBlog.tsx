@@ -5,7 +5,7 @@ import { Category } from "@/utils/interfaces";
 import { getCategories } from "@/utils/api";
 import styles from "./Blogs.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faUpload, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useEdgeStore } from "@/lib/edgestore";
 
@@ -74,6 +74,9 @@ const CreateBlog = () => {
       const res = await edgestore.publicFiles.upload({
         file: file,
         signal: abortController.signal,
+        options: {
+          replaceTargetUrl: hackDetails.imageUrl || undefined,
+        },
         onProgressChange: (progress) => {
           setProgress(progress);
           console.log("Upload progress:", progress);
@@ -179,7 +182,6 @@ const CreateBlog = () => {
     }catch(error){
       console.log("Failed to delete image: ", error)
     }
-
   }
   return (
     <div className={styles.createPage}>
@@ -247,7 +249,7 @@ const CreateBlog = () => {
                                 setHackDetails((prev) => ({ ...prev, image: null }));
                               }
                             }}
-                            >x</div>
+                            ><FontAwesomeIcon icon={faXmark} /></div>
                         <Image  src={
                           hackDetails.imageUrl 
                             ? hackDetails.imageUrl

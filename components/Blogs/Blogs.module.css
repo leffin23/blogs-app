@@ -14,7 +14,7 @@
 .blogsList{
     padding: 1em;
     width: 100%;
-    /* column-count: 3; */
+    /* column-count: 2; */
     display: flex;
     justify-content: center;
     gap: 3em;
@@ -274,20 +274,29 @@
 .remove_img{
   font-size: 1em;
   font-weight: 700;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1em;
+  height: 1em;
   padding: .2em;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(126, 101, 70);
+  color: rgb(255, 222, 144);
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 2%;
+  top: 2%;
   z-index: 10;
-  background-color: rgb(255, 222, 114);
+  background-color: rgb(120, 115, 109);
   border-radius: 100%;
   cursor: pointer;
+  transition: all .2s ease;
+}
+.remove_img svg{
+    width: 100%;
+    aspect-ratio: 1;
+    stroke: 2;
+}
+.remove_img:hover{
+    background-color: rgb(177, 165, 147);  
 }
 .circle{
     width: 1.3em;
